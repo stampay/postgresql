@@ -1,7 +1,7 @@
 # file: postgresql/defaults/main.yml
 
 # Basic settings
-postgresql_version: 9.3
+postgresql_version: 9.6 # if you use postgis too check whether the postgresql/postgis versions work together
 postgresql_encoding: 'UTF-8'
 postgresql_locale_parts:
   - 'en_US' # Locale
@@ -321,8 +321,11 @@ postgresql_wal_receiver_timeout: 60s
 # time to wait before retrying to retrieve WAL after a failed attempt
 postgresql_wal_retrieve_retry_interval: 5s # (>= 9.5)
 
-postgresql_max_logical_replication_workers: 8 # (>= 10)
-postgresql_max_sync_workers_per_subscription: 2 # (>= 10)
+# - Subscribers - (>= 10)
+# These settings are ignored on a publisher.
+
+postgresql_max_logical_replication_workers: 8 # (>= 10) taken from max_worker_processes (change requires restart)
+postgresql_max_sync_workers_per_subscription: 2 # (>= 10) taken from max_logical_replication_workers
 
 #------------------------------------------------------------------------------
 # QUERY TUNING
@@ -729,7 +732,7 @@ postgresql_pgdg_releases:
       9.4: 3,
       9.5: 3,
       9.6: 3,
-      10: 1,
+      10: 2,
   }
   centos: {
       9.1: 7,
@@ -738,7 +741,7 @@ postgresql_pgdg_releases:
       9.4: 3,
       9.5: 3,
       9.6: 3,
-      10: 1,
+      10: 2,
   }
   sl: {
       9.1: 8,
@@ -747,7 +750,7 @@ postgresql_pgdg_releases:
       9.4: 3,
       9.5: 3,
       9.6: 3,
-      10: 1,
+      10: 2,
   }
   oraclelinux: {
       9.1: 8,
@@ -756,7 +759,7 @@ postgresql_pgdg_releases:
       9.4: 3,
       9.5: 3,
       9.6: 3,
-      10: 1
+      10: 2
   }
 postgresql_version_terse: "{{ postgresql_version | replace('.', '') }}"
 postgresql_yum_repository_base_url: "http://yum.postgresql.org"
