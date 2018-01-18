@@ -7,7 +7,7 @@ RUN apt-get update -qq && \
                         libffi-dev libssl-dev locales && \
     echo 'en_US.UTF-8 UTF-8' > /var/lib/locales/supported.d/local && \
     pip install -U setuptools && \
-    pip install -q ansible==2.1.1
+    pip install -q ansible==2.4.2.0
 
 # Copy our role into the container, using our role name
 WORKDIR /tmp/postgresql
