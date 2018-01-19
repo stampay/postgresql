@@ -16,6 +16,7 @@
   tags: 
     - postgresql
     - pglogical
+  become: yes
   when: postgresql_pglogica
 
 - include_tasks: extensions.yml

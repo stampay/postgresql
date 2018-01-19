@@ -18,4 +18,4 @@ COPY  .  /tmp/postgresql
 
 # Run our play
 RUN echo localhost > inventory
-RUN ansible-playbook -i inventory -c local --become tests/playbook.yml
+RUN ansible-playbook -i inventory -c local tests/playbook.yml
