@@ -22,3 +22,12 @@ postgresql_users:
 postgresql_user_privileges:
   - name: baz
     db: foobar
+
+postgresql_pglogical: yes
+postgresql_shared_preload_libraries:
+  - pglogical
+postgresql_wal_level: logical
+postgresql_track_commit_timestamp: yes
+postgresql_max_replication_slots: 8
+postgresql_max_wal_senders: 8
+postgresql_track_commit_timestamp: yes

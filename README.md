@@ -73,6 +73,23 @@ postgresql_user_privileges:
     role_attr_flags: "CREATEDB" # role attribute flags
 ```
 
+#### PgLogical
+
+If you want to enable pglogical you have to: 
+
+- Set `postgresql_pglogical` to `yes` (Default: `no`). This installs pglogical
+
+on provider:
+- Add `'pglogical'` to `postgresql_shared_preload_libraries`
+- Set `postgresql_wal_level` to `logical`
+- Set `postgresql_track_commit_timestamp` to true if you are > 9.5
+- Set `postgresql_max_replication_slots` to a number you like. You can sefely set this to 8
+- Set `postgresql_max_wal_senders` to a number you like. You can sefely set this to 8
+
+on subscriber:
+- Add `'pglogical'` to `postgresql_shared_preload_libraries`
+- Set `postgresql_max_worker_processes` to a number you like.
+
 There's a lot more knobs and bolts to set, which you can find in the defaults/main.yml
 
 
