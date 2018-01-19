@@ -4,7 +4,7 @@ MAINTAINER ANXS
 # Setup system with minimum requirements + ansible
 RUN apt-get update -qq && \
     apt-get install -qq python-apt python-pycurl python-pip python-dev \
-                        libffi-dev libssl-dev locales && \
+                        libffi-dev libssl-dev locales sudo && \
     echo 'LANG="en_US.UTF-8"' > /etc/default/locale && \
     pip install -U setuptools && \
     pip install -q ansible==2.4.2.0
@@ -15,4 +15,4 @@ COPY  .  /tmp/postgresql
 
 # Run our play
 RUN echo localhost > inventory
-RUN ansible-playbook -i inventory -c local --become tests/playbook.yml
+RUN ansible-playbook -i inventory -c local tests/playbook.yml
