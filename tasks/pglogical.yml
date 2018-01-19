@@ -24,7 +24,7 @@
 
 - name: PostgreSQL | Configure the PgLogical repositories | YUM
   yum:
-    name: yum install http://packages.2ndquadrant.com/pglogical/yum-repo-rpms/pglogical-rhel-1.0-3.noarch.rpm
+    name: http://packages.2ndquadrant.com/pglogical/yum-repo-rpms/pglogical-rhel-1.0-3.noarch.rpm
     state: present
   when: ansible_pkg_mgr == "yum"
 
