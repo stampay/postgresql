@@ -36,10 +36,10 @@ script:
   - ansible-playbook -i inventory tests/playbook.yml --syntax-check
 
   # Play test
-  - ansible-playbook -i inventory tests/playbook.yml --connection=local --sudo -e "$ROLE_GLOBALS $ROLE_OPTIONS"
+  - ansible-playbook -i inventory tests/playbook.yml --connection=local -e "$ROLE_GLOBALS $ROLE_OPTIONS"
 
   # Idempotence test
-  - ansible-playbook -i inventory tests/playbook.yml --connection=local --sudo -e "$ROLE_GLOBALS $ROLE_OPTIONS" > idempotence_out
+  - ansible-playbook -i inventory tests/playbook.yml --connection=local -e "$ROLE_GLOBALS $ROLE_OPTIONS" > idempotence_out
   - ./tests/idempotence_check.sh idempotence_out
 
   # Testing with docker (experimental)

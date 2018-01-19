@@ -1,0 +1,38 @@
+---
+
+- name: PostgreSQL | Configure the PgLogical APT key | APT
+  apt_key: 
+    url: http://packages.2ndquadrant.com/pglogical/apt/AA7A6805.asc 
+    state: present
+  when: ansible_pkg_mgr == "apt"
+
+- name: PostgreSQL | Configure the PgLogical repositories | APT
+  apt_repository: 
+    repo: "deb [arch=amd64] http://packages.2ndquadrant.com/pglogical/apt/ {{ 'xenial' if ansible_distribution_release == 'yakkety' else ansible_distribution_release }}-2ndquadrant main"
+    state: present
+  when: ansible_pkg_mgr == "apt"
+
+- name: PostgreSQL | Ensure PgLogical and dependencies are installed | APT
+  apt: 
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  with_items:
+    - postgresql-{{ postgresql_version }}-pglogical
+  when: ansible_pkg_mgr == "apt"
+
+- name: PostgreSQL | Configure the PgLogical repositories | YUM
+  yum:
+    name: http://packages.2ndquadrant.com/pglogical/yum-repo-rpms/pglogical-rhel-1.0-3.noarch.rpm
+    state: present
+  when: ansible_pkg_mgr == "yum"
+
+- name: PostgreSQL | Ensure PgLogical and dependencies are installed | YUM
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - postgresql{{ postgresql_version | replace(".", "") }}-pglogical
+  when: ansible_pkg_mgr == "yum"

@@ -36,6 +36,9 @@ postgresql_ext_postgis_deps:
   - "postgresql-{{postgresql_version}}-postgis-{{postgresql_ext_postgis_version}}"
   - "postgresql-{{postgresql_version}}-postgis-scripts"
 
+
+postgresql_pglogical: no
+
 # List of databases to be created (optional)
 postgresql_databases: []
 
