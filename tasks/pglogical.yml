@@ -1,5 +1,4 @@
 ---
-
 - name: PostgreSQL | Configure the PgLogical APT key | APT
   apt_key: 
     url: http://packages.2ndquadrant.com/pglogical/apt/AA7A6805.asc 
@@ -10,7 +9,7 @@
   apt_repository: 
     repo: "deb [arch=amd64] http://packages.2ndquadrant.com/pglogical/apt/ {{ 'xenial' if ansible_distribution_release == 'yakkety' else ansible_distribution_release }}-2ndquadrant main"
     state: present
-  when: ansible_pkg_mgr == "apt"
+  when: ansible_pkg_mgr == "apt" and ansible_distribution == "Ubuntu" and ansible_distribution_version <= "16.04"
 
 - name: PostgreSQL | Ensure PgLogical and dependencies are installed | APT
   apt: 
