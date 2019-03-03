@@ -4,6 +4,7 @@
     - "../vars/empty.yml"
   tags: [always]
 
+<<<<<<< HEAD
 - include_tasks: install.yml
   when: ansible_pkg_mgr == "apt"
   tags: [postgresql, postgresql-install]
@@ -18,6 +19,19 @@
     - pglogical
   become: yes
   when: postgresql_pglogical
+=======
+- import_tasks: install_apt.yml
+  when: ansible_pkg_mgr == "apt"
+  tags: [postgresql, postgresql-install]
+
+- import_tasks: install_yum.yml
+  when: ansible_pkg_mgr == "yum" and ( ansible_distribution == "RedHat" or ansible_distribution == "CentOS" )
+  tags: [postgresql, postgresql-install]
+
+- import_tasks: install_dnf.yml
+  when: ansible_pkg_mgr == "dnf" and ansible_distribution == "Fedora"
+  tags: [postgresql, postgresql-install]
+>>>>>>> c3656c5bb3360e92eb99f4f65f3e9738a03651f3
 
 - import_tasks: extensions.yml
   tags: [postgresql, postgresql-extensions]
@@ -31,9 +45,19 @@
 - import_tasks: databases.yml
   tags: [postgresql, postgresql-databases]
 
+<<<<<<< HEAD
 - import_tasks: users_privileges.yml
   tags: [postgresql, postgresql-users]
 
 - include_tasks: monit.yml
+=======
+- import_tasks: schemas.yml
+  tags: [postgresql, postgresql-schemas]
+
+- import_tasks: users_privileges.yml
+  tags: [postgresql, postgresql-users]
+
+- import_tasks: monit.yml
+>>>>>>> c3656c5bb3360e92eb99f4f65f3e9738a03651f3
   when: monit_protection is defined and monit_protection == true
   tags: [postgresql, postgresql-monit]

@@ -1,16 +1,16 @@
 ---
 
-postgresql_version: 10
+postgresql_version: 10 
 
 postgresql_databases:
   - name: foobar
     owner: baz
 
 postgresql_users:
+
+  # postgresql >=10 does not accept unencrypted passwords 
   - name: baz
-    # pass: pass
-    # UNENCRYPTED PASSWORD is no longer supported (>= 10)
-    pass: 4528e6a7bb9341c36c425faf40ef32c3
+    pass: md51a1dc91c907325c69271ddf0c944bc72
     encrypted: yes
 
   - name: zab
@@ -30,3 +30,8 @@ postgresql_wal_level: logical
 postgresql_track_commit_timestamp: yes
 postgresql_max_replication_slots: 8
 postgresql_max_wal_senders: 8
+postgresql_database_schemas:
+  - database: foobar
+    state: present
+    schema: acme
+    owner: baz
