@@ -4,7 +4,7 @@
     - "../vars/empty.yml"
   tags: [always]
 
-- include_tasks: install.yml
+- include_tasks: install_apt.yml
   when: ansible_pkg_mgr == "apt"
   tags: [postgresql, postgresql-install]
 
@@ -39,9 +39,8 @@
   tags: [postgresql, postgresql-users]
 
 - include_tasks: monit.yml
+  when: monit_protection is defined and monit_protection == true
+  tags: [postgresql, postgresql-monit]
 
 - include_tasks: schemas.yml
   tags: [postgresql, postgresql-schemas]
-
-  when: monit_protection is defined and monit_protection == true
-  tags: [postgresql, postgresql-monit]
