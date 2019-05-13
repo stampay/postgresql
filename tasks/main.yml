@@ -26,6 +26,9 @@
 - import_tasks: extensions.yml
   tags: [postgresql, postgresql-extensions]
 
+- import_tasks: fdw.yml
+  tags: [postgresql, postgresql-fdw]
+
 - import_tasks: configure.yml
   tags: [postgresql, postgresql-configure]
 
@@ -37,6 +40,9 @@
 - import_tasks: databases.yml
   tags: [postgresql, postgresql-databases]
 
+- include_tasks: schemas.yml
+  tags: [postgresql, postgresql-schemas]
+
 - import_tasks: users_privileges.yml
   tags: [postgresql, postgresql-users]
 
@@ -44,5 +50,5 @@
   when: monit_protection is defined and monit_protection == true
   tags: [postgresql, postgresql-monit]
 
-- include_tasks: schemas.yml
-  tags: [postgresql, postgresql-schemas]
+- import_tasks: check_pg_version_mismatch.yml
+  tags: [postgresql, postgresql-version-mismatch]
